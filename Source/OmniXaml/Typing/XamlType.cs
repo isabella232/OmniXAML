@@ -178,9 +178,11 @@ namespace OmniXaml.Typing
             return hasValidGetter && hasValidSetter && !isIndexer;
         }
 
-        public virtual INameScope GetNameScope(object instance)
+        public bool IsNameScope => LookupIsNamescope();
+
+        protected virtual bool LookupIsNamescope()
         {
-            return instance as INameScope;
+            return this.UnderlyingType is INameScope;
         }
     }
 }

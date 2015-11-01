@@ -1,19 +1,19 @@
 ﻿namespace Glass
 {
     using System;
-    using System.Collections.Generic;
 
     public static class StackingLinkedListMixin
     {
-        public static IEnumerable<T> TraverseBackwards<T>(this StackingLinkedList<T> sll) where T : class
+        public static T ReverseLookup<T>(this StackingLinkedList<T> sll, Func<T, bool> lookupUntilPredicate) where T : class 
         {
-            LinkedListNode<T> node = sll.Current;
+            var currentNode = sll.Previous;
+            
+            while (currentNode != null && lookupUntilPredicate(currentNode.Value))
+            {                
+                currentNode = currentNode.Previous;
+            } 
 
-            while (node != null)
-            {
-                yield return node.Value;
-                node = node.Previous;
-            }
+            return currentNode?.Value;
         }
     }
 }

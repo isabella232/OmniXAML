@@ -11,5 +11,10 @@ namespace OmniXaml.Tests.Common
         }
 
         public new bool IsNameScope { get; set; }
+
+        protected override bool LookupIsNamescope()
+        {
+            return IsNameScope;
+        }
     }
 }

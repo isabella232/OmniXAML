@@ -183,11 +183,21 @@ namespace OmniXaml.ObjectAssembler
 
         private INameScope LookupParentNamescope()
         {
-            return stack.TraverseBackwards()
-                .Skip(1)
-                .Select(x => x.XamlType?.GetNameScope(x.Instance))
-                .Where(x => x != null)
-                .FirstOrDefault();
+            var level = stack.ReverseLookup(l => !IsNameScope(l));
+            return level?.Instance as INameScope;
+        }
+
+        private static bool IsNameScope(Level level)
+        {
+            if (level.XamlType != null)
+            {
+                var xamlTypeSaysIsNameScope = level.XamlType.IsNameScope;
+                var instanceIsNameScope = level.Instance is INameScope;
+
+                return xamlTypeSaysIsNameScope && instanceIsNameScope;
+            }
+
+            return false;
         }
 
         private void AddChildToHost()
