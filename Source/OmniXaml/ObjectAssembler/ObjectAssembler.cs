@@ -74,9 +74,13 @@ namespace OmniXaml.ObjectAssembler
 
         private XamlMemberBase GetMember(XamlMemberBase member)
         {
-            if (IsLevelOneAndThereIsRootInstance && !member.IsDirective)
+            if (IsLevelOneAndThereIsRootInstance && !member.IsDirective && rootInstanceXamlType != null)
             {
-                return rootInstanceXamlType == null ? member : rootInstanceXamlType.GetMember(member.Name);
+                var attachable = member as AttachableXamlMember;
+
+                member = attachable != null ?
+                    (XamlMemberBase)attachable.DeclaringType.GetAttachableMember(member.Name) :
+                    (XamlMemberBase)rootInstanceXamlType.GetMember(member.Name);
             }
 
             return member;
