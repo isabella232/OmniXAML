@@ -19,6 +19,7 @@ namespace OmniXaml.ObjectAssembler
             this.topDownValueContext = topDownValueContext;
         }
 
+        public ITopDownValueContext TopDownValueContext => topDownValueContext;
         public ITypeRepository TypeRepository => typeRepository;
 
         public object ConvertValueIfNecessary(object value, XamlType targetType)

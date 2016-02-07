@@ -7,10 +7,12 @@ namespace OmniXaml.ObjectAssembler
     public class CurrentLevelWrapper
     {
         private readonly Level level;
+        private readonly ValuePipeline pipeline;
 
-        public CurrentLevelWrapper(Level level)
+        public CurrentLevelWrapper(Level level, ValuePipeline pipeline)
         {
             this.level = level;
+            this.pipeline = pipeline;
         }
 
         public string InstanceName
@@ -23,7 +25,7 @@ namespace OmniXaml.ObjectAssembler
             set
             {
                 var runtimeNameMember = XamlType.RuntimeNamePropertyMember;
-                runtimeNameMember?.SetValue(Instance, value);
+                runtimeNameMember?.SetValue(Instance, value, pipeline);
             }
         }
 

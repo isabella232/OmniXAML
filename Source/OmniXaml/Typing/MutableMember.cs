@@ -4,7 +4,7 @@ namespace OmniXaml.Typing
     using System.Linq;
     using System.Reflection;
     using Glass;
-
+    using ObjectAssembler;
     public abstract class MutableMember : MemberBase, IDependency<Member>
     {
         protected MutableMember(string name,
@@ -46,7 +46,7 @@ namespace OmniXaml.Typing
             return "Member: " + Name;
         }
 
-        public virtual void SetValue(object instance, object value)
+        public virtual void SetValue(object instance, object value, ValuePipeline pipeline)
         {
             MemberValuePlugin.SetValue(instance, value);
         }

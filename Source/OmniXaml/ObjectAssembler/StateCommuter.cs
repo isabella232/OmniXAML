@@ -66,7 +66,7 @@ namespace OmniXaml.ObjectAssembler
             var previousMember = (MutableMember) Previous.Member;
             var compatibleValue = ValuePipeline.ConvertValueIfNecessary(Current.Instance, previousMember.XamlType);
 
-            previousMember.SetValue(Previous.Instance, compatibleValue);
+            previousMember.SetValue(Previous.Instance, compatibleValue, ValuePipeline);
         }
 
         public void RaiseLevel()
@@ -77,7 +77,7 @@ namespace OmniXaml.ObjectAssembler
 
         private void UpdateLevelWrappers()
         {
-            Current = new CurrentLevelWrapper(stack.Current != null ? stack.CurrentValue : new NullLevel());
+            Current = new CurrentLevelWrapper(stack.Current != null ? stack.CurrentValue : new NullLevel(), ValuePipeline);
             Previous = new PreviousLevelWrapper(stack.Previous != null ? stack.PreviousValue : new NullLevel());
         }
 
