@@ -90,5 +90,35 @@
             Assert.AreEqual(0x80, color.G);
             Assert.AreEqual(0x80, color.B);
         }
+
+        [TestMethod]
+        public void SolidColorBrushResourceError()
+        {
+            try
+            {
+                var visualTree = (Window)LoadXaml(Resources.SolidColorBrushResource);
+                Assert.Fail("Expected exception.");
+            }
+            catch (ParseException e)
+            {
+                Assert.AreEqual("Element attributes are not allowed on objects created via TypeConverter.", e.Message);
+            }
+        }
+
+        [TestMethod]
+        public void ColumnDefinitionResourceError()
+        {
+            try
+            {
+                var visualTree = (Window)LoadXaml(Resources.ColumnDefinitionResourceError);
+                Assert.Fail("Expected exception.");
+            }
+            catch (ParseException e)
+            {
+                Assert.AreEqual(
+                    "The TypeConverter for \"ColumnDefinition\" does not support converting from a string.", 
+                    e.Message);
+            }
+        }
     }
 }
