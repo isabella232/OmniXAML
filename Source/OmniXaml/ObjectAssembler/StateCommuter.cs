@@ -4,7 +4,7 @@ namespace OmniXaml.ObjectAssembler
     using System.Linq;
     using System.Reflection;
     using Commands;
-    using Glass;
+    using Glass.Core;
     using TypeConversion;
     using Typing;
 
@@ -132,8 +132,7 @@ namespace OmniXaml.ObjectAssembler
             {
                 TargetObject = Previous.Instance,
                 TargetProperty = Previous.Instance.GetType().GetRuntimeProperty(Previous.Member.Name),
-                TypeRepository = ValueContext.TypeRepository,
-                TopDownValueContext = TopDownValueContext
+                ValueContext = ValueContext,                
             };
 
             return inflationContext;

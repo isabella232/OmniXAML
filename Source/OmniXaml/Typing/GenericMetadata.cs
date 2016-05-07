@@ -2,8 +2,7 @@ namespace OmniXaml.Typing
 {
     using System;
     using System.Linq.Expressions;
-    using Glass;
-
+    using Glass.Core;
 
     public class GenericMetadata<T> : Metadata
     {
@@ -23,8 +22,6 @@ namespace OmniXaml.Typing
             ContentProperty = nameOfPropertySelector.GetFullPropertyName();
             return this;
         }
-
-        public string ContentProperty { get; set; }
 
         public GenericMetadata<T> WithRuntimeNameProperty(Expression<Func<T, object>> nameOfPropertySelector)
         {

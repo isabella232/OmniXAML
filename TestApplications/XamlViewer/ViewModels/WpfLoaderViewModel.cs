@@ -1,12 +1,11 @@
 ﻿namespace XamlViewer.ViewModels
 {
-    using System.Collections;
+    using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Input;
     using OmniXaml;
     using OmniXaml.Wpf;
     using XamlViewer;
-    using Xaml.Tests.Resources;
 
     public class WpfLoaderViewModel : XamlVisualizerViewModel
     {
@@ -14,14 +13,14 @@
 
         public WpfLoaderViewModel()
         {
-            IXamlSnippetProvider snippetsProvider = new XamlSnippetProvider(typeof(Dummy).Assembly, "Xaml.Tests.Resources.Wpf.resources");
+            IXamlSnippetProvider snippetsProvider = new SnippetProvider("Xaml\\Wpf");
             Snippets = snippetsProvider.Snippets;
             LoadCommand = new RelayCommand(o => LoadXamlForWpf(), o => Xaml != string.Empty);
             RuntimeTypeSource = new WpfRuntimeTypeSource();
         }
 
 
-        public IList Snippets { get; set; }
+        public IEnumerable<Snippet> Snippets { get; set; }
 
         public ICommand LoadCommand { get; private set; }
 
@@ -73,5 +72,4 @@
                 "Load problem");
         }
     }
-
 }
